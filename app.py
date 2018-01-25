@@ -8,7 +8,7 @@ import BaseHTTPServer
 import CGIHTTPServer
 import webbrowser
 
-PORT = 8000
+PORT = 8080
 #TODO: check that port is available,
 # and look for a different one if it isn't.
 
