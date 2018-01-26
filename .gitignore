@@ -50,3 +50,6 @@ crashlytics-build.properties
 fabric.properties
 
 cgi-bin/hit-count.txt
+insta.db
+
+*.pyc
