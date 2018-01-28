@@ -8,18 +8,19 @@ from Cookie import SimpleCookie
 from html_helpers import header, footer
 
 cgitb.enable()
-print 'Content-type: text/html\n\n'
+print 'Content-type: text/html'
 
 form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
-c = conn.cursor()
+cursor = conn.cursor()
+cookie = SimpleCookie()
 
-header()
-print '<link rel="stylesheet" href="/css/index.css">'
-
-if c.execute('SELECT COUNT(*) FROM users WHERE username = ? AND password = ?', form['username'].value, form['password'].value).fetchone()[0] == 1:
+if cursor.execute('SELECT 1=1 FROM users WHERE username = ? AND password = ?', (form['username'].value, form['password'].value)).fetchone() != None:
+	cookie['username'] = form['username'].value
+	print cookie
+	print '\n'
+	print '<meta http-equiv="refresh" content="0; url=/">'
 	print 'login success'
 else:
-	print 'login failed'
-
-footer()
+	print '\n'
+	print 'login failed, please try again'
