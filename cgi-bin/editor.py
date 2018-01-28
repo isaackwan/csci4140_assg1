@@ -14,40 +14,18 @@ form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
 c = conn.cursor()
 
-header()
-print '<link rel="stylesheet" href="/css/index.css">'
+def new_url(delta):
+	old_url = form.fp.getvalue() # type: str
+	old_url = old_url.rsplit('=', 1)
+	return old_url[0] + '=' + str(int(old_url[1]) + delta)
 
-print '<div class="row">'
+print new_url(-1)
 
-try:
-	offset = int(form['offset'].value)
-except KeyError:
-	offset = 0
+if 'action' in form:
+	if form['action'].value == 'undo':
+		print 'undo'
+	else:
+		print 'unknown action'
 
-if False == False:
-	query = 'SELECT * FROM photos ORDER BY time DESC'
-else:
-	query = ''
-
-for row in c.execute(query + ' LIMIT 8 OFFSET ?', str(offset*8)):
-	print '<div class="col-1 col-md-3"><a href="{}" target="_blank"><img src="{}" class="img-thumbnail"></a></div>'.format(cgi.escape(row[1]), cgi.escape(row[1]))
-
-print '</div>'
-
-total_pages = c.execute('SELECT COUNT(*) FROM ({})'.format(query)).fetchone()[0]
-total_pages = int(ceil(float(total_pages)/8))
-
-print '<nav aria-label="Page navigation example"><ul class="pagination"><li class="page-item"><a class="page-link" href="?offset={}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'.format(offset-1)
-
-for i in range(1, total_pages+1):
-	is_current_page = (i-1) == offset
-	print '<li class="page-item {}"><a class="page-link" href="?offset={}">{}</a></li>'.format('active' if is_current_page else '', i-1, i)
-
-print '<li class="page-item"><a class="page-link" href="?offset={}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>'.format(offset+1)
-
-print '<div class="card"><div class="card-header">Upload photo</div><div class="card-body"><form action="/cgi-bin/upload.py" method="POST" enctype="multipart/form-data"><div class="form-group">' \
-	  '<input name="file" type="file" class="form-control-file">' \
-	  '<div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="private" id="private_public" value="0" checked><label class="form-check-label" for="private_public">Public</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="private" id="private_private" value="1"><label class="form-check-label" for="private_private">Private</label></div>' \
-	  '<button type="submit" class="btn btn-primary">Upload</button></div></form></div></div>'
-
-footer()
+with open('editor.html', 'r') as f:
+	print f.read()
