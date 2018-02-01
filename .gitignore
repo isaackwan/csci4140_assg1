@@ -53,3 +53,4 @@ cgi-bin/hit-count.txt
 insta.db
 
 *.pyc
+tmp.png
