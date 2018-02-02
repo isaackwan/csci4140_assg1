@@ -4,6 +4,8 @@ from pprint import pprint
 import cgi
 import cgitb
 import sqlite3
+from Cookie import SimpleCookie
+from os import environ
 from math import ceil
 from html_helpers import header, footer
 
@@ -14,9 +16,18 @@ form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
 c = conn.cursor()
 c.execute("PRAGMA foreign_keys = ON")
+cookie = SimpleCookie(environ['HTTP_COOKIE'])
 
 header()
 print '<link rel="stylesheet" href="/css/index.css">'
+
+print '<nav class="navbar navbar-dark bg-primary navbar-expand">'
+
+if 'username' not in cookie or '' == cookie['username'].value:
+	print '<ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="#">Login</a></li><li class="nav-item"><a class="nav-link active" href="#">Register</a></li></ul>'
+else:
+	print '<span class="navbar-text">Hello, {username}!</span><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active " href="#">Logout</a></li></ul>'.format(username=cookie['username'].value)
+print '</nav>'
 
 print '<div class="row">'
 
