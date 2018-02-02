@@ -70,11 +70,11 @@ if 'action' in form:
 	elif form['action'].value == 'lens_flare':
 		width = check_output(['identify', gen_path()])
 		width = width.split(' ')[2].split('x')[0]
-		check_call('convert lensflare.png -resize {width}x tmp.png && composite -compose screen -gravity northwest tmp.png {in_} {out}'.format(width=width, in_=gen_path(), out=gen_path(1)), shell=True)
+		check_call('convert static/lensflare.png -resize {width}x tmp.png && composite -compose screen -gravity northwest tmp.png {in_} {out}'.format(width=width, in_=gen_path(), out=gen_path(1)), shell=True)
 		next_sequence()
 	elif form['action'].value == 'black_and_white':
 		dimensions = check_output(['identify', gen_path()]).split(' ')[2]
-		check_call('convert {in_} -type grayscale itm.png && convert linear_gradient.png -resize {dimension}\! tmp.png && composite -compose softlight -gravity center tmp.png itm.png {out} && rm itm.png'.format(in_=gen_path(), out=gen_path(1), dimension=dimensions), shell=True)
+		check_call('convert {in_} -type grayscale itm.png && convert static/linear_gradient.png -resize {dimension}\! tmp.png && composite -compose softlight -gravity center tmp.png itm.png {out} && rm itm.png'.format(in_=gen_path(), out=gen_path(1), dimension=dimensions), shell=True)
 		next_sequence()
 	elif form['action'].value == 'blur':
 		check_call(['convert', gen_path(), '-blur', '0.5x4', gen_path(1)])
@@ -100,5 +100,5 @@ if 'action' in form:
 	else:
 		print 'unknown action'
 
-with open('editor.html', 'r') as f:
+with open('static/editor.html', 'r') as f:
 	print str(f.read()).replace('{img_addr}', gen_path(0, '/'))
