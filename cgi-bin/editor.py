@@ -71,8 +71,30 @@ if 'action' in form:
 		width = width.split(' ')[2].split('x')[0]
 		check_call('convert lensflare.png -resize {width}x tmp.png && composite -compose screen -gravity northwest tmp.png {in_} {out}'.format(width=width, in_=gen_path(), out=gen_path(1)), shell=True)
 		next_sequence()
+	elif form['action'].value == 'black_and_white':
+		dimensions = check_output(['identify', gen_path()]).split(' ')[2]
+		check_call('convert {in_} -type grayscale itm.png && convert linear_gradient.png -resize {dimension}\! tmp.png && composite -compose softlight -gravity center tmp.png itm.png {out} && rm itm.png'.format(in_=gen_path(), out=gen_path(1), dimension=dimensions), shell=True)
+		next_sequence()
 	elif form['action'].value == 'blur':
 		check_call(['convert', gen_path(), '-blur', '0.5x4', gen_path(1)])
+		next_sequence()
+	elif form['action'].value == 'annotate_top':
+		if 'font_size' not in form:
+			print '<h1>Font size not set</h1>'
+			exit()
+		if 'message' not in form:
+			print '<h1>Message not set</h1>'
+			exit()
+		check_call(['convert', gen_path(), '-background', 'grey', '-pointsize', form['font_size'].value, '-font', form['font_type'].value, 'label:{}'.format(form['message'].value), '+swap', '-gravity', 'center', '-append', gen_path(1)])
+		next_sequence()
+	elif form['action'].value == 'annotate_bottom':
+		if 'font_size' not in form:
+			print '<h1>Font size not set</h1>'
+			exit()
+		if 'message' not in form:
+			print '<h1>Message not set</h1>'
+			exit()
+		check_call(['convert', gen_path(), '-background', 'grey', '-pointsize', form['font_size'].value, '-font', form['font_type'].value, 'label:{}'.format(form['message'].value), '-gravity', 'center', '-append', gen_path(1)])
 		next_sequence()
 	else:
 		print 'unknown action'
