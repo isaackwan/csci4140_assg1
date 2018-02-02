@@ -13,6 +13,7 @@ print 'Content-type: text/html'
 form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
 cursor = conn.cursor()
+cursor.execute("PRAGMA foreign_keys = ON")
 cookie = SimpleCookie()
 
 if cursor.execute('SELECT 1=1 FROM users WHERE username = ? AND password = ?', (form['username'].value, form['password'].value)).fetchone() != None:

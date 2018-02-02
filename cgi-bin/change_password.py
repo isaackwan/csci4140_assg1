@@ -14,6 +14,7 @@ print 'Content-type: text/html\n'
 form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
 cursor = conn.cursor()
+cursor.execute("PRAGMA foreign_keys = ON")
 cookie = SimpleCookie(os.environ['HTTP_COOKIE'])
 
 if form['password'].value != form['password2'].value:

@@ -16,9 +16,6 @@ cgitb.enable()
 print 'Content-type: text/html\n'
 
 form = cgi.FieldStorage()
-conn = sqlite3.connect('insta.db')
-cursor = conn.cursor()
-cookie = SimpleCookie(os.environ['HTTP_COOKIE'])
 
 if form['file'].file:
 	identify_output = check_output(["identify", "-"], stdin=form['file'].file)
@@ -39,17 +36,3 @@ if form['file'].file:
 
 else:
 	print 'Crap, no file uploaded'
-
-
-
-
-'''if cursor.execute('SELECT 1=1 FROM users WHERE username = ? AND password = ?', (form['username'].value, form['password'].value)).fetchone() != None:
-	cookie['username'] = form['username'].value
-	print cookie
-	print '\n'
-	print '<meta http-equiv="refresh" content="0; url=/">'
-	print 'login success'
-else:
-	print '\n'
-	print 'login failed, please try again'
-'''

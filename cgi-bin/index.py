@@ -13,6 +13,7 @@ print 'Content-type: text/html\n'
 form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
 c = conn.cursor()
+c.execute("PRAGMA foreign_keys = ON")
 
 header()
 print '<link rel="stylesheet" href="/css/index.css">'

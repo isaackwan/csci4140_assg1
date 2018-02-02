@@ -17,6 +17,7 @@ print 'Content-type: text/html\n'
 form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
 c = conn.cursor()
+c.execute("PRAGMA foreign_keys = ON")
 cookie = SimpleCookie(environ['HTTP_COOKIE'])
 
 def gen_path(sequence=0, prefix=''):
