@@ -30,5 +30,5 @@ conn.commit()
 
 call('rm upload_temp/* uploads/*', shell=True)
 
-print '<meta http-equiv="refresh" content="0; url=/">'
 print '<h1>Reset success</h1>'
+print '<p><a href="/">Click me to go back to the front page.</a></p>'
