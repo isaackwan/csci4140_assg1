@@ -61,13 +61,13 @@ total_pages = total_pages.fetchone()[0]
 total_pages = int(ceil(float(total_pages)/8))
 #print total_pages
 
-print '<nav aria-label="Page navigation example"><ul class="pagination"><li class="page-item"><a class="page-link" href="?offset={}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'.format(offset-1)
+print '<nav aria-label="Page navigation example"><ul class="pagination">'
 
 for i in range(1, total_pages+1):
 	is_current_page = (i-1) == offset
 	print '<li class="page-item {}"><a class="page-link" href="?offset={}">{}</a></li>'.format('active' if is_current_page else '', i-1, i)
 
-print '<li class="page-item"><a class="page-link" href="?offset={}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>'.format(offset+1)
+print '</ul></nav>'.format(offset+1)
 
 if not not_logged_in:
 	print '<div class="card"><div class="card-header">Upload photo</div><div class="card-body"><form action="/cgi-bin/upload.py" method="POST" enctype="multipart/form-data"><div class="form-group">' \

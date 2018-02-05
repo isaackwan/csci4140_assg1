@@ -24,4 +24,4 @@ if cursor.execute('SELECT 1=1 FROM users WHERE username = ? AND password = ?', (
 	print 'login success'
 else:
 	print '\n'
-	print 'login failed, please try again'
+	print 'login failed, please try again or go to <a href="/">the index page</a>'
