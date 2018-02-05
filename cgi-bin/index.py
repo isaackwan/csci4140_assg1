@@ -71,7 +71,7 @@ print '</ul></nav>'.format(offset+1)
 
 if not not_logged_in:
 	print '<div class="card"><div class="card-header">Upload photo</div><div class="card-body"><form action="/cgi-bin/upload.py" method="POST" enctype="multipart/form-data"><div class="form-group">' \
-		  '<input name="file" type="file" class="form-control-file">' \
+		  '<input name="file" type="file" class="form-control-file" required>' \
 		  '<div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="private" id="private_public" value="0" checked><label class="form-check-label" for="private_public">Public</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="private" id="private_private" value="1"><label class="form-check-label" for="private_private">Private</label></div>' \
 		  '<button type="submit" class="btn btn-primary">Upload</button></div></form></div></div>'
 
