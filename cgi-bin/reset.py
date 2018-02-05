@@ -14,7 +14,7 @@ print 'Content-type: text/html'
 form = cgi.FieldStorage()
 conn = sqlite3.connect('insta.db')
 cursor = conn.cursor()
-cursor.execute("PRAGMA foreign_keys = ON")
+# cursor.execute("PRAGMA foreign_keys = ON")
 cookie = SimpleCookie()
 
 if 'confirm' not in form:
@@ -26,6 +26,7 @@ print cookie
 print '\n'
 
 cursor.execute('DELETE FROM users')
+cursor.execute('DELETE FROM photos')
 conn.commit()
 
 call('rm upload_temp/* uploads/*', shell=True)
