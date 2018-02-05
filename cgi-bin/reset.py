@@ -31,5 +31,5 @@ conn.commit()
 
 call('rm upload_temp/* uploads/*', shell=True)
 
-print '<h1>Reset success</h1>'
+print '<h1>job is done</h1>'
 print '<p><a href="/">Click me to go back to the front page.</a></p>'
