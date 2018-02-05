@@ -20,7 +20,7 @@ cookie = SimpleCookie(environ['HTTP_COOKIE'])
 not_logged_in = 'username' not in cookie or '' == cookie['username'].value # type: bool
 
 header()
-print '<link rel="stylesheet" href="/css/index.css">'
+print '<link rel="stylesheet" href="/static/index.css">'
 
 print '<nav class="navbar navbar-dark bg-primary navbar-expand">'
 
