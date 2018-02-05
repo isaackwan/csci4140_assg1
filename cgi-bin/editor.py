@@ -5,7 +5,7 @@ import cgi
 import cgitb
 import sqlite3
 from os import environ, rename
-from subprocess import check_call, check_output
+from subprocess import check_call, check_output, call
 from sys import exit
 from Cookie import SimpleCookie
 from math import ceil
@@ -57,7 +57,7 @@ if 'action' in form:
 		c.execute("INSERT INTO photos (link, username, private) VALUES (?, ?, ?)", ('/' + new_link, cookie['username'].value, form['private'].value))
 		rename(gen_path(), new_link)
 		conn.commit()
-		check_call("rm upload_temp/{id}_*.{ext}".format(id=form['id'].value, ext=form['file_ext'].value), shell=True)
+		call("rm upload_temp/{id}_*.{ext}".format(id=form['id'].value, ext=form['file_ext'].value), shell=True)
 		print '<meta http-equiv="refresh" content="0; url=/">'
 		print '<h1>Successfully saved</h1>'
 		print '<h2>Please wait while you\'re being redirected...</h2>'
