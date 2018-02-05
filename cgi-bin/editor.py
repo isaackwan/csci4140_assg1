@@ -58,7 +58,7 @@ if 'action' in form:
 		rename(gen_path(), new_link)
 		conn.commit()
 		call("rm upload_temp/{id}_*.{ext}".format(id=form['id'].value, ext=form['file_ext'].value), shell=True)
-		print '<meta http-equiv="refresh" content="0; url=/">'
+		print '<meta http-equiv="refresh" content="0; url=finish.py?url={}">'.format(new_link)
 		print '<h1>Successfully saved</h1>'
 		print '<h2>Please wait while you\'re being redirected...</h2>'
 	elif form['action'].value == 'border':
