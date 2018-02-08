@@ -27,7 +27,7 @@ print '<nav class="navbar navbar-dark bg-primary navbar-expand">'
 if not_logged_in:
 	print '<ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="/login.html">Login</a></li><li class="nav-item"><a class="nav-link active" href="/register.html">Register</a></li></ul>'
 else:
-	print '<span class="navbar-text">Hello, {username}!</span><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active " href="/cgi-bin/logout.py">Logout</a></li></ul>'.format(username=cookie['username'].value)
+	print '<span class="navbar-text">Hello, {username}!</span><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active " href="/change_password.html">Change Password</a></li><li class="nav-item"><a class="nav-link active " href="/cgi-bin/logout.py">Logout</a></li></ul>'.format(username=cookie['username'].value)
 print '</nav>'
 
 print '<div class="row">'
